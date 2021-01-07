@@ -3,8 +3,9 @@ const { width, height } = layout.window;
 
 export const COLORS = {
   // base colors
-  primary: "#FC6D3F", // orange
-  secondary: "#CDCDD2", // gray
+  primary: "#03174C", // dark blue
+  secondary: "#CDCDD2", // blue
+  accent: "#CDCDD2", // purple
 
   // colors
   black: "#1E1F20",
@@ -44,7 +45,7 @@ export const SIZES = {
 };
 
 export const FONTS = {
-  h1: { fontFamily: "PoppinsBold", fontSize: SIZES.h1, lineHeight: 36 },
+  //h1: { fontFamily: "PoppinsBold", fontSize: SIZES.h1, lineHeight: 36 },
   h2: { fontFamily: "PoppinsMedium", fontSize: SIZES.h2, lineHeight: 30 },
   h3: { fontFamily: "PoppinsMedium", fontSize: SIZES.h3, lineHeight: 22 },
   h4: { fontFamily: "PoppinsMedium", fontSize: SIZES.h4, lineHeight: 22 },
