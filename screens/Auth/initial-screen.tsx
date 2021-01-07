@@ -68,19 +68,4 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     padding: Dimensions.window.width * 0.1,
   },
-  appButtonContainer: {
-    alignSelf: "stretch",
-    marginTop: 32,
-    backgroundColor: COLORS.secondary,
-    borderRadius: 24,
-    paddingVertical: 18,
-    paddingHorizontal: 12,
-    ...SHADOWS.bigShadow,
-  },
-  appButtonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-  },
 });

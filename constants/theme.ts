@@ -35,11 +35,11 @@ export const SIZES = {
   h2: 22,
   h3: 20,
   h4: 18,
-  body1: 30,
-  body2: 20,
-  body3: 16,
-  body4: 14,
-  body5: 12,
+  body1: 24,
+  body2: 18,
+  body3: 14,
+  body4: 12,
+  body5: 10,
 
   // app dimensions
   width,
@@ -59,17 +59,17 @@ export const FONTS = {
   body2: {
     fontFamily: "PoppinsRegular",
     fontSize: SIZES.body2,
-    lineHeight: 30,
+    lineHeight: 20,
   },
   body3: {
     fontFamily: "PoppinsRegular",
     fontSize: SIZES.body3,
-    lineHeight: 22,
+    lineHeight: 18,
   },
   body4: {
     fontFamily: "PoppinsRegular",
     fontSize: SIZES.body4,
-    lineHeight: 22,
+    lineHeight: 17,
   },
   body5: {
     fontFamily: "PoppinsRegular",
@@ -79,6 +79,16 @@ export const FONTS = {
   button: {
     fontFamily: "PoppinsBold",
     fontSize: SIZES.body4,
+    lineHeight: 22,
+  },
+  formLabel: {
+    fontFamily: "PoppinsBold",
+    fontSize: SIZES.body4,
+    lineHeight: 22,
+  },
+  formDescriptionLabel: {
+    fontFamily: "PoppinsRegular",
+    fontSize: SIZES.body5,
     lineHeight: 22,
   },
 };
