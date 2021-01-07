@@ -3,9 +3,9 @@ const { width, height } = layout.window;
 
 export const COLORS = {
   // base colors
-  primary: "#03174C", // dark blue
-  secondary: "#CDCDD2", // blue
-  accent: "#CDCDD2", // purple
+  primary: "#17082A", // dark purple
+  secondary: "#6644B8", // blue
+  accent: "#FF8FC6", // purple
 
   // colors
   black: "#1E1F20",
@@ -16,7 +16,9 @@ export const COLORS = {
   lightGray3: "#EFEFF1",
   lightGray4: "#F8F8F9",
   transparent: "transparent",
-  darkgray: "#898C95",
+  darkgray: "#827886",
+  darkgray2: "#CEBBD8",
+  darkgray3: "#3F324F",
 };
 
 export const SIZES = {
@@ -45,7 +47,7 @@ export const SIZES = {
 };
 
 export const FONTS = {
-  //h1: { fontFamily: "PoppinsBold", fontSize: SIZES.h1, lineHeight: 36 },
+  h1: { fontFamily: "PoppinsBold", fontSize: SIZES.h1, lineHeight: 36 },
   h2: { fontFamily: "PoppinsMedium", fontSize: SIZES.h2, lineHeight: 30 },
   h3: { fontFamily: "PoppinsMedium", fontSize: SIZES.h3, lineHeight: 22 },
   h4: { fontFamily: "PoppinsMedium", fontSize: SIZES.h4, lineHeight: 22 },
@@ -74,8 +76,26 @@ export const FONTS = {
     fontSize: SIZES.body5,
     lineHeight: 22,
   },
+  button: {
+    fontFamily: "PoppinsBold",
+    fontSize: SIZES.body4,
+    lineHeight: 22,
+  },
 };
 
-const appTheme = { COLORS, SIZES, FONTS };
+export const SHADOWS = {
+  bigShadow: {
+    shadowColor: "#17082A",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 10.32,
+    elevation: 16,
+  },
+};
+
+const appTheme = { COLORS, SIZES, FONTS, SHADOWS };
 
 export default appTheme;

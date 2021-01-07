@@ -5,22 +5,13 @@ import * as Font from "expo-font";
 import { Loading } from "./screens/Loading";
 
 export default function App() {
-  const [isLoadingFonts, setIsLoadingFonts] = React.useState<boolean>(false);
+  const [loaded, error] = Font.useFonts({
+    PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
+    PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
+    PoppinsMedium: require("./assets/fonts/Poppins-Medium.ttf"),
+  });
 
-  React.useEffect(() => {
-    loadFonts();
-  }, []);
-
-  async function loadFonts() {
-    await Font.loadAsync({
-      PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
-      PoppinsMedium: require("./assets/fonts/Poppins-Medium.ttf"),
-      // PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
-    });
-    setIsLoadingFonts(false);
-  }
-
-  if (isLoadingFonts) {
+  if (!loaded) {
     return <Loading />;
   }
 
