@@ -2,8 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  ImageBackground,
-  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
@@ -15,7 +13,7 @@ import {
   CustomButton,
   Shadows,
 } from "../../components/Button";
-import { COLORS, FONTS, SHADOWS } from "../../constants";
+import { COLORS, FONTS } from "../../constants";
 import Dimensions from "../../constants/layout";
 import { useNavigation } from "@react-navigation/native";
 import { CustomInput } from "../../components/Input";
@@ -48,11 +46,15 @@ export const CreateAccount = () => {
           placeholder="Password"
           keyboardType="default"
           maxLength={250}
+          secureTextEntry
         />
         <CustomInput
           placeholder="Confirm Password"
           keyboardType="default"
           maxLength={250}
+          secureTextEntry
+          hasError={true}
+          errorText="Email already in use"
         />
       </View>
       <View style={{ alignSelf: "stretch" }}>

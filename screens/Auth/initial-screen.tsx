@@ -7,7 +7,7 @@ import {
   CustomButton,
   Shadows,
 } from "../../components/Button";
-import { COLORS, FONTS, SHADOWS } from "../../constants";
+import { COLORS, FONTS } from "../../constants";
 import Dimensions from "../../constants/layout";
 import { useNavigation } from "@react-navigation/native";
 

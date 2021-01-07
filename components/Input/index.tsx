@@ -9,6 +9,9 @@ interface TextInputProps {
   placeholder?: string;
   keyboardType: "default" | "number-pad" | "numeric" | "email-address";
   maxLength: number;
+  secureTextEntry?: boolean;
+  hasError?: boolean;
+  errorText?: string;
 }
 
 export const CustomInput = ({
@@ -17,6 +20,9 @@ export const CustomInput = ({
   placeholder,
   keyboardType,
   maxLength,
+  secureTextEntry,
+  errorText,
+  hasError,
 }: TextInputProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -26,9 +32,10 @@ export const CustomInput = ({
       <TextInput
         style={[
           styles.formTextInput,
-          isFocused
+          isFocused && !hasError
             ? styles.formInputFocusedColor
             : styles.formInputDefaultColor,
+          hasError ? styles.formInputDangerColor : null,
         ]}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
@@ -37,9 +44,15 @@ export const CustomInput = ({
         keyboardAppearance="dark"
         keyboardType={keyboardType}
         maxLength={maxLength}
+        secureTextEntry={secureTextEntry ? true : false}
       />
       {descriptionLabel ? (
         <Text style={styles.formInputDescriptionLabel}>{descriptionLabel}</Text>
+      ) : null}
+      {hasError && errorText ? (
+        <Text style={[styles.formInputDescriptionLabel, styles.dangerText]}>
+          {errorText}
+        </Text>
       ) : null}
     </View>
   );
@@ -61,14 +74,21 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     ...FONTS.body4,
   },
+
   formInputDefaultColor: {
     borderColor: COLORS.darkgray2,
   },
   formInputFocusedColor: {
     borderColor: COLORS.accent,
   },
+  formInputDangerColor: {
+    borderColor: COLORS.danger,
+  },
   formInputDescriptionLabel: {
     ...FONTS.formDescriptionLabel,
     color: COLORS.darkgray2,
+  },
+  dangerText: {
+    color: COLORS.danger,
   },
 });
