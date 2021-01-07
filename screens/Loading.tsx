@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export const CreateAccount = () => {
+export const Loading = () => {
   return (
     <View>
-      <Text style={{ fontFamily: "PoppinsBold" }}>Create account</Text>
+      <Text>Loading</Text>
     </View>
   );
 };
