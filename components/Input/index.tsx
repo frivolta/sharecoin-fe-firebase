@@ -12,6 +12,9 @@ interface TextInputProps {
   secureTextEntry?: boolean;
   hasError?: boolean;
   errorText?: string;
+  onBlur?: () => void;
+  onChangeText?: (...event: any[]) => void;
+  value?: any;
 }
 
 export const CustomInput = ({
@@ -23,8 +26,20 @@ export const CustomInput = ({
   secureTextEntry,
   errorText,
   hasError,
+  onBlur,
+  onChangeText,
+  value,
 }: TextInputProps) => {
   const [isFocused, setIsFocused] = React.useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    onBlur && onBlur;
+  };
 
   return (
     <View style={styles.formInputContainer}>
@@ -37,14 +52,15 @@ export const CustomInput = ({
             : styles.formInputDefaultColor,
           hasError ? styles.formInputDangerColor : null,
         ]}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onFocus={() => handleFocus()}
+        onBlur={() => handleBlur()}
         placeholder={`${placeholder || null}`}
         placeholderTextColor={COLORS.darkgray}
         keyboardAppearance="dark"
         keyboardType={keyboardType}
         maxLength={maxLength}
         secureTextEntry={secureTextEntry ? true : false}
+        onChangeText={onChangeText}
       />
       {descriptionLabel ? (
         <Text style={styles.formInputDescriptionLabel}>{descriptionLabel}</Text>

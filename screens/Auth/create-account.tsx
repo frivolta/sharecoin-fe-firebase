@@ -17,11 +17,29 @@ import { COLORS, FONTS } from "../../constants";
 import Dimensions from "../../constants/layout";
 import { useNavigation } from "@react-navigation/native";
 import { CustomInput } from "../../components/Input";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createAccountSchema } from "../../constants/validationSchemas";
 
-//@ToDo: Password mask, I already have an account, checkbox terms, when focus user should see the input
+//@ToDo: checkbox terms, verification, submit
+
+type CreateAccountFormData = {
+  nickName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 export const CreateAccount = () => {
   const navigation = useNavigation();
+
+  const { control, handleSubmit, errors } = useForm<CreateAccountFormData>({
+    resolver: yupResolver(createAccountSchema),
+    mode: "onBlur",
+  });
+  const onSubmit = (data: CreateAccountFormData) => {
+    console.log(data);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -31,36 +49,86 @@ export const CreateAccount = () => {
       <Text style={styles.title}>Create an account</Text>
       <Text style={styles.body}>Fill out the form below</Text>
       <View style={styles.formContainer}>
-        <CustomInput
-          placeholder="Nickname"
-          descriptionLabel="This is what other users will see"
-          keyboardType="default"
-          maxLength={25}
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <CustomInput
+              placeholder="Nickname"
+              descriptionLabel="This is what other users will see"
+              keyboardType="default"
+              maxLength={25}
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+              value={value}
+              hasError={!!(errors && errors.nickName)}
+              errorText={errors.nickName?.message}
+            />
+          )}
+          name="nickName"
+          rules={{ required: true }}
+          defaultValue=""
         />
-        <CustomInput
-          placeholder="info@youremail.com"
-          keyboardType="email-address"
-          maxLength={125}
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <CustomInput
+              placeholder="info@youremail.com"
+              keyboardType="email-address"
+              maxLength={125}
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+              value={value}
+              hasError={!!(errors && errors.email)}
+              errorText={errors.email?.message}
+            />
+          )}
+          name="email"
+          rules={{ required: true }}
+          defaultValue=""
         />
-        <CustomInput
-          placeholder="Password"
-          keyboardType="default"
-          maxLength={250}
-          secureTextEntry
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <CustomInput
+              placeholder="Password"
+              keyboardType="default"
+              maxLength={250}
+              secureTextEntry
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+              value={value}
+              hasError={!!(errors && errors.password)}
+              errorText={errors.password?.message}
+            />
+          )}
+          name="password"
+          rules={{ required: true }}
+          defaultValue=""
         />
-        <CustomInput
-          placeholder="Confirm Password"
-          keyboardType="default"
-          maxLength={250}
-          secureTextEntry
-          hasError={true}
-          errorText="Email already in use"
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <CustomInput
+              placeholder="Confirm Password"
+              keyboardType="default"
+              maxLength={250}
+              secureTextEntry
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+              value={value}
+              hasError={!!(errors && errors.confirmPassword)}
+              errorText={errors.confirmPassword?.message}
+            />
+          )}
+          name="confirmPassword"
+          rules={{ required: true }}
+          defaultValue=""
         />
       </View>
       <View style={{ alignSelf: "stretch" }}>
         <CustomButton
           label="Sign up"
-          onPress={() => console.log("Signing up")}
+          onPress={handleSubmit(onSubmit)}
           shadows={Shadows.BIG}
           buttonType={ButtonType.PRIMARY}
           buttonSize={ButtonSize.BIG}
