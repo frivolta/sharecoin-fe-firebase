@@ -3,24 +3,36 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthNavigator } from "./navigators/authNavigator";
 import * as Font from "expo-font";
 import { Loading } from "./screens/Loading";
-import { FirebaseAuthProvider } from "./hooks/authentication";
+import {
+  FirebaseAuthProvider,
+  useFirebaseAuthContext,
+} from "./hooks/authentication";
+import { AppNavigator } from "./navigators/appNavigator";
 
 export default function App() {
-  const [loaded, error] = Font.useFonts({
-    PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
-    PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
-    PoppinsMedium: require("./assets/fonts/Poppins-Medium.ttf"),
-  });
-
-  if (!loaded) {
-    return <Loading />;
-  }
-
   return (
     <FirebaseAuthProvider>
       <NavigationContainer>
-        <AuthNavigator />
+        <AppLoader />
       </NavigationContainer>
     </FirebaseAuthProvider>
   );
 }
+
+const AppLoader = () => {
+  const [loaded] = Font.useFonts({
+    PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
+    PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
+    PoppinsMedium: require("./assets/fonts/Poppins-Medium.ttf"),
+  });
+  const { isLoading, isUserSignedIn } = useFirebaseAuthContext();
+
+  if (!loaded || isLoading) {
+    return <Loading />;
+  }
+
+  if (isUserSignedIn) {
+    return <AppNavigator />;
+  }
+  return <AuthNavigator />;
+};

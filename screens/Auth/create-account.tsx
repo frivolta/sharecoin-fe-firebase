@@ -43,12 +43,12 @@ export const CreateAccount = () => {
   });
   const onSubmit = async (data: CreateAccountFormData) => {
     try {
-      const { email, password } = data;
+      const { email, password, nickName } = data;
       const user = await Firebase.auth().createUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(user);
+      await user.user?.updateProfile({ displayName: nickName });
     } catch (error) {
       setSignUpError(true);
       setSignupErrorMessage(error.message);

@@ -30,18 +30,6 @@ type LoginFormData = {
 
 export const Login = () => {
   const navigation = useNavigation();
-  const {
-    isLoading,
-    isUserSignedIn,
-    authStatusReported,
-    currentUser,
-  } = useFirebaseAuthContext();
-
-  React.useEffect(() => {
-    console.log(
-      `${isLoading}, ${isUserSignedIn}, ${authStatusReported}, ${currentUser}`
-    );
-  }, [currentUser]);
 
   const { control, handleSubmit, errors } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
