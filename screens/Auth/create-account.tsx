@@ -20,6 +20,7 @@ import { CustomInput } from "../../components/Input";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createAccountSchema } from "../../constants/validationSchemas";
+import Firebase from "../../firebase/config";
 
 //@ToDo: checkbox terms, verification, submit
 
@@ -32,14 +33,41 @@ type CreateAccountFormData = {
 
 export const CreateAccount = () => {
   const navigation = useNavigation();
-
+  const [signUpError, setSignUpError] = React.useState(false);
+  const [signupErrorMessage, setSignupErrorMessage] = React.useState<
+    null | string
+  >(null);
   const { control, handleSubmit, errors } = useForm<CreateAccountFormData>({
     resolver: yupResolver(createAccountSchema),
     mode: "onBlur",
   });
-  const onSubmit = (data: CreateAccountFormData) => {
-    console.log(data);
+  const onSubmit = async (data: CreateAccountFormData) => {
+    try {
+      const { email, password } = data;
+      const user = await Firebase.auth().createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log(user);
+    } catch (error) {
+      setSignUpError(true);
+      setSignupErrorMessage(error.message);
+    }
   };
+
+  const errorMessageElement =
+    signUpError && signupErrorMessage ? (
+      <View style={{ borderBottomColor: COLORS.danger }}>
+        <Text
+          style={{
+            marginTop: 16,
+            color: COLORS.accent,
+          }}
+        >
+          {signupErrorMessage}
+        </Text>
+      </View>
+    ) : null;
 
   return (
     <KeyboardAvoidingView
@@ -124,6 +152,7 @@ export const CreateAccount = () => {
           rules={{ required: true }}
           defaultValue=""
         />
+        {errorMessageElement}
       </View>
       <View style={{ alignSelf: "stretch" }}>
         <CustomButton

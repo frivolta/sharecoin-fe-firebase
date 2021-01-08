@@ -20,6 +20,8 @@ import { CustomInput } from "../../components/Input";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../constants/validationSchemas";
+import Firebase from "../../firebase/config";
+import { useFirebaseAuthContext } from "../../hooks/authentication";
 
 type LoginFormData = {
   email: string;
@@ -28,13 +30,50 @@ type LoginFormData = {
 
 export const Login = () => {
   const navigation = useNavigation();
+  const {
+    isLoading,
+    isUserSignedIn,
+    authStatusReported,
+    currentUser,
+  } = useFirebaseAuthContext();
+
+  React.useEffect(() => {
+    console.log(
+      `${isLoading}, ${isUserSignedIn}, ${authStatusReported}, ${currentUser}`
+    );
+  }, [currentUser]);
+
   const { control, handleSubmit, errors } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
     mode: "onBlur",
   });
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const [loginError, setLoginError] = React.useState(false);
+  const [loginErrorMessage, setLoginErrorMessage] = React.useState<
+    null | string
+  >(null);
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      const { email, password } = data;
+      await Firebase.auth().signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      setLoginError(true);
+      setLoginErrorMessage(error.message);
+    }
   };
+
+  const errorMessageElement =
+    loginError && loginErrorMessage ? (
+      <View style={{ borderBottomColor: COLORS.danger }}>
+        <Text
+          style={{
+            marginTop: 16,
+            color: COLORS.accent,
+          }}
+        >
+          {loginErrorMessage}
+        </Text>
+      </View>
+    ) : null;
 
   return (
     <KeyboardAvoidingView
@@ -80,6 +119,7 @@ export const Login = () => {
           rules={{ required: true }}
           defaultValue=""
         />
+        {errorMessageElement}
       </View>
       <View style={{ alignSelf: "stretch" }}>
         <CustomButton

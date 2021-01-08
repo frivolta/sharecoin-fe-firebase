@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthNavigator } from "./navigators/authNavigator";
 import * as Font from "expo-font";
 import { Loading } from "./screens/Loading";
+import { FirebaseAuthProvider } from "./hooks/authentication";
 
 export default function App() {
   const [loaded, error] = Font.useFonts({
@@ -16,8 +17,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AuthNavigator />
-    </NavigationContainer>
+    <FirebaseAuthProvider>
+      <NavigationContainer>
+        <AuthNavigator />
+      </NavigationContainer>
+    </FirebaseAuthProvider>
   );
 }
