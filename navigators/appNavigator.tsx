@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Dashboard } from "../screens/Dashboard";
+import { Dashboard } from "../screens";
 const Stack = createStackNavigator();
 
 const screenOptions = {

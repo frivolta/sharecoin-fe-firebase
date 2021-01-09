@@ -8,13 +8,16 @@ import {
   useFirebaseAuthContext,
 } from "./hooks/authentication";
 import { AppNavigator } from "./navigators/appNavigator";
+import { ThemeProvider } from "react-native-elements";
 
 export default function App() {
   return (
     <FirebaseAuthProvider>
-      <NavigationContainer>
-        <AppLoader />
-      </NavigationContainer>
+      <ThemeProvider>
+        <NavigationContainer>
+          <AppLoader />
+        </NavigationContainer>
+      </ThemeProvider>
     </FirebaseAuthProvider>
   );
 }
