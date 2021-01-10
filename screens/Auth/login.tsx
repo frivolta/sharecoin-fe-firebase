@@ -21,8 +21,6 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../constants/validationSchemas";
 import Firebase from "../../firebase/config";
-import { useFirebaseAuthContext } from "../../hooks/authentication";
-import * as yup from "yup";
 
 type LoginFormData = {
   email: string;
@@ -33,15 +31,7 @@ export const Login = () => {
   const navigation = useNavigation();
 
   const { control, handleSubmit, errors } = useForm<LoginFormData>({
-    resolver: yupResolver(
-      yup.object().shape({
-        email: yup
-          .string()
-          .required("Email is required")
-          .email("Invalid email"),
-        password: yup.string().required("Password is required"),
-      })
-    ),
+    resolver: yupResolver(loginSchema),
     mode: "onBlur",
   });
   const [loginError, setLoginError] = React.useState(false);

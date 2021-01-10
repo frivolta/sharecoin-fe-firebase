@@ -1,4 +1,7 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
+import "firebase/auth";
+import "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBPczh5DTt3mW1zda25kP6xTIm7jbTd0N0",
   authDomain: "sharecoin-dev.firebaseapp.com",

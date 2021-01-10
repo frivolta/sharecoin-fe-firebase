@@ -1,21 +1,36 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Dashboard } from "../screens";
+import { CreateGroup, Dashboard } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Groups } from "../screens/Groups";
 
 const DashboardStack = createStackNavigator();
+const CreateGroupStack = createStackNavigator();
+const GroupsStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const screenOptions = {
-  headerShown: true,
-};
 
 export const DashboardStackScreen = () => {
   return (
     <DashboardStack.Navigator>
       <DashboardStack.Screen name="Dashboard" component={Dashboard} />
     </DashboardStack.Navigator>
+  );
+};
+
+export const CreateGroupStackScreen = () => {
+  return (
+    <CreateGroupStack.Navigator>
+      <CreateGroupStack.Screen name="Create Group" component={CreateGroup} />
+    </CreateGroupStack.Navigator>
+  );
+};
+
+export const GroupsStackScreen = () => {
+  return (
+    <GroupsStack.Navigator>
+      <GroupsStack.Screen name="Create Group" component={Groups} />
+    </GroupsStack.Navigator>
   );
 };
 
@@ -46,8 +61,8 @@ export const AppNavigator = () => {
       })}
     >
       <Tab.Screen name="Dashboard" component={DashboardStackScreen} />
-      <Tab.Screen name="Groups" component={DashboardStackScreen} />
-      <Tab.Screen name="Create Group" component={DashboardStackScreen} />
+      <Tab.Screen name="Groups" component={GroupsStackScreen} />
+      <Tab.Screen name="Create Group" component={CreateGroupStackScreen} />
       <Tab.Screen name="Settings" component={DashboardStackScreen} />
     </Tab.Navigator>
   );

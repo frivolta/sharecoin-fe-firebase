@@ -15,6 +15,7 @@ interface TextInputProps {
   onBlur?: () => void;
   onChangeText?: (...event: any[]) => void;
   value?: any;
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 export const CustomInput = ({

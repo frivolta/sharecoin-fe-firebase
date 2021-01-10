@@ -49,6 +49,10 @@ export const CreateAccount = () => {
         password
       );
       await user.user?.updateProfile({ displayName: nickName });
+      await Firebase.firestore()
+        .collection("users")
+        .doc(user.user?.uid)
+        .set({ displayName: nickName, email, photoUrl: null });
     } catch (error) {
       setSignUpError(true);
       setSignupErrorMessage(error.message);
