@@ -11,9 +11,10 @@ import { COLORS } from "../../constants";
 import Firebase from "../../firebase/config";
 import { useFirebaseAuthContext } from "../../hooks/authentication";
 import { ProfileWidget } from "./ProfileWidget";
+import { useFocusEffect } from "@react-navigation/native";
+
 export const Dashboard = () => {
   const { currentUser } = useFirebaseAuthContext();
-
   return (
     <View style={styles.container}>
       <View style={styles.container}>

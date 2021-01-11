@@ -4,6 +4,7 @@ import { CreateGroup, Dashboard } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Groups } from "../screens/Groups";
+import { Group } from "../screens/Groups/Group";
 
 const DashboardStack = createStackNavigator();
 const CreateGroupStack = createStackNavigator();
@@ -29,7 +30,8 @@ export const CreateGroupStackScreen = () => {
 export const GroupsStackScreen = () => {
   return (
     <GroupsStack.Navigator>
-      <GroupsStack.Screen name="Create Group" component={Groups} />
+      <GroupsStack.Screen name="Groups" component={Groups} />
+      <GroupsStack.Screen name="Group" component={Group} />
     </GroupsStack.Navigator>
   );
 };

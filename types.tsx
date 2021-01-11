@@ -31,6 +31,19 @@ export interface Group {
   members: Array<string>;
   expenses: Expense[] | null;
 }
+export interface PopulatedGroup {
+  id?: string;
+  name: string;
+  createdBy: {
+    id: string;
+    displayName: string;
+    email: string;
+    photoUrl: string;
+  };
+  createdDate: string;
+  members: Array<string>;
+  expenses: Expense[] | null;
+}
 
 export interface UserCollection {
   displayName: string;

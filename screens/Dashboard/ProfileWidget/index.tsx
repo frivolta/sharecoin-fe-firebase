@@ -3,7 +3,6 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Avatar } from "react-native-elements";
 import { COLORS, FONTS } from "../../../constants";
-import { Icon } from "react-native-elements";
 
 interface ProfileWidgetProps {
   user: User;
