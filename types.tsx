@@ -1,19 +1,7 @@
-export type RootStackParamList = {
-  Root: undefined;
-  NotFound: undefined;
-};
-
-export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-};
-
-export type TabOneParamList = {
-  TabOneScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type GroupsStackScreenParamsList = {
+  Groups: undefined;
+  Group: { groupId: string; owner: any };
+  AddMember: { groupId: string };
 };
 
 export interface Expense {
@@ -49,4 +37,6 @@ export interface UserCollection {
   displayName: string;
   email: string;
   photoUrl: null | string;
+  memberof: string[];
+  invitations: string[];
 }

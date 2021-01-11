@@ -5,10 +5,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Groups } from "../screens/Groups";
 import { Group } from "../screens/Groups/Group";
+import { AddMember } from "../screens/Groups/AddMember";
+import { GroupsStackScreenParamsList } from "../types";
 
 const DashboardStack = createStackNavigator();
 const CreateGroupStack = createStackNavigator();
-const GroupsStack = createStackNavigator();
+const GroupsStack = createStackNavigator<GroupsStackScreenParamsList>();
 const Tab = createBottomTabNavigator();
 
 export const DashboardStackScreen = () => {
@@ -32,6 +34,7 @@ export const GroupsStackScreen = () => {
     <GroupsStack.Navigator>
       <GroupsStack.Screen name="Groups" component={Groups} />
       <GroupsStack.Screen name="Group" component={Group} />
+      <GroupsStack.Screen name="AddMember" component={AddMember} />
     </GroupsStack.Navigator>
   );
 };

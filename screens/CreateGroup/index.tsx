@@ -14,6 +14,7 @@ import Firebase from "../../firebase/config";
 import { useFirebaseAuthContext } from "../../hooks/authentication";
 import Dimensions from "../../constants/layout";
 import { Group } from "../../types";
+import firebase from "firebase";
 
 interface CreateGroupForm {
   name: string;
@@ -43,7 +44,17 @@ export const CreateGroup = () => {
           expenses: null,
         };
         reset();
-        await Firebase.firestore().collection("groups").add(group);
+        const groupDoc = await Firebase.firestore()
+          .collection("groups")
+          .add(group);
+        console.log(groupDoc.id);
+        const userRef = Firebase.firestore()
+          .collection("users")
+          .doc(currentUser.uid);
+        userRef.update({
+          memberof: firebase.firestore.FieldValue.arrayUnion(groupDoc.id),
+        });
+
         navigation.navigate("Dashboard");
       }
       throw "Group name or user is not defined";

@@ -6,14 +6,19 @@ import { COLORS, FONTS } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
 import Firebase from "../../../firebase/config";
+import {
+  ButtonSize,
+  ButtonType,
+  CustomButton,
+  Shadows,
+} from "../../../components/Button";
 
-export const Group = ({ route }: any) => {
+export const Group = ({ route, navigation }: any) => {
   const { currentUser } = useFirebaseAuthContext();
   const [groups, setGroups] = React.useState<null | PopulatedGroup[]>(null);
   const [loading, setLoading] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null);
-  const navigation = useNavigation();
 
   console.log(route.params);
 
@@ -51,6 +56,18 @@ export const Group = ({ route }: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Group</Text>
+      <View style={{ alignSelf: "stretch" }}>
+        <CustomButton
+          label="Add Member"
+          onPress={() =>
+            navigation.navigate("AddMember", { groupId: route.params.groupId })
+          }
+          shadows={Shadows.BIG}
+          buttonType={ButtonType.PRIMARY}
+          buttonSize={ButtonSize.BIG}
+          outlined={false}
+        />
+      </View>
       {errorMessageElement}
     </View>
   );
