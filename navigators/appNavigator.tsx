@@ -7,9 +7,11 @@ import { Groups } from "../screens/Groups";
 import { Group } from "../screens/Groups/Group";
 import { AddMember } from "../screens/Groups/AddMember";
 import { GroupsStackScreenParamsList } from "../types";
+import { Invitations } from "../screens/Invitations";
 
 const DashboardStack = createStackNavigator();
 const CreateGroupStack = createStackNavigator();
+const InvitationsStack = createStackNavigator();
 const GroupsStack = createStackNavigator<GroupsStackScreenParamsList>();
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +41,14 @@ export const GroupsStackScreen = () => {
   );
 };
 
+export const InvitationsStackScreen = () => {
+  return (
+    <InvitationsStack.Navigator>
+      <InvitationsStack.Screen name="Invitations" component={Invitations} />
+    </InvitationsStack.Navigator>
+  );
+};
+
 export const AppNavigator = () => {
   return (
     <Tab.Navigator
@@ -58,8 +68,8 @@ export const AppNavigator = () => {
               ? "ios-people-circle"
               : "ios-people-circle-outline";
           }
-          if (route.name === "Settings") {
-            iconName = focused ? "ios-cog" : "ios-cog-outline";
+          if (route.name === "Invitations") {
+            iconName = focused ? "ios-person-add" : "ios-person-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -68,7 +78,7 @@ export const AppNavigator = () => {
       <Tab.Screen name="Dashboard" component={DashboardStackScreen} />
       <Tab.Screen name="Groups" component={GroupsStackScreen} />
       <Tab.Screen name="Create Group" component={CreateGroupStackScreen} />
-      <Tab.Screen name="Settings" component={DashboardStackScreen} />
+      <Tab.Screen name="Invitations" component={InvitationsStackScreen} />
     </Tab.Navigator>
   );
 };

@@ -1,7 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { useFirebaseAuthContext } from "../../../hooks/authentication";
-import { GroupsStackScreenParamsList, PopulatedGroup } from "../../../types";
+import {
+  GroupsStackScreenParamsList,
+  Invitation,
+  PopulatedGroup,
+} from "../../../types";
 import { COLORS, FONTS } from "../../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { RouteProp } from "@react-navigation/native";
@@ -63,7 +67,6 @@ export const AddMember = ({ route }: Props) => {
         if (user.docs[0] === undefined) {
           throw "No user has that email";
         }
-        console.log(user.docs[0].data(), route.params.groupId);
         if (user.docs[0].data().memberof.includes(route.params.groupId)) {
           throw "User is already member of the group";
         }
@@ -73,10 +76,17 @@ export const AddMember = ({ route }: Props) => {
         const userRef = Firebase.firestore()
           .collection("users")
           .doc(user.docs[0].id);
+        const invitation: Invitation = {
+          id: route.params.groupId,
+          invitedAt: Date.now().toString(),
+          invitedBy: route.params.owner,
+          invitedToId: route.params.groupId,
+          invitedToName: route.params.groupName,
+        };
         userRef.update({
-          invitations: firebase.firestore.FieldValue.arrayUnion(
-            route.params.groupId
-          ),
+          invitations: firebase.firestore.FieldValue.arrayUnion({
+            ...invitation,
+          }),
         });
         navigation.goBack();
       }

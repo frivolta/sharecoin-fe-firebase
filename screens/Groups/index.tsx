@@ -2,13 +2,6 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Dimensions from "../../constants/layout";
 import { useFocusEffect } from "@react-navigation/native";
-
-import {
-  ButtonSize,
-  ButtonType,
-  CustomButton,
-  Shadows,
-} from "../../components/Button";
 import { COLORS, FONTS } from "../../constants";
 import Firebase from "../../firebase/config";
 import { useFirebaseAuthContext } from "../../hooks/authentication";
@@ -96,6 +89,7 @@ export const Groups = () => {
             navigation.navigate("Group", {
               owner: group.createdBy,
               groupId: group.id,
+              groupName: group.name,
             })
           }
         >

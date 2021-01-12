@@ -1,7 +1,7 @@
 export type GroupsStackScreenParamsList = {
   Groups: undefined;
   Group: { groupId: string; owner: any };
-  AddMember: { groupId: string };
+  AddMember: { groupId: string; groupName: string; owner: GroupOwner };
 };
 
 export interface Expense {
@@ -19,18 +19,28 @@ export interface Group {
   members: Array<string>;
   expenses: Expense[] | null;
 }
+
+export interface GroupOwner {
+  id: string;
+  displayName: string;
+  email: string;
+  photoUrl: string;
+}
 export interface PopulatedGroup {
   id?: string;
   name: string;
-  createdBy: {
-    id: string;
-    displayName: string;
-    email: string;
-    photoUrl: string;
-  };
+  createdBy: GroupOwner;
   createdDate: string;
   members: Array<string>;
   expenses: Expense[] | null;
+}
+
+export interface Invitation {
+  id: string;
+  invitedAt: string;
+  invitedBy: GroupOwner;
+  invitedToId: string;
+  invitedToName: string;
 }
 
 export interface UserCollection {
@@ -38,5 +48,5 @@ export interface UserCollection {
   email: string;
   photoUrl: null | string;
   memberof: string[];
-  invitations: string[];
+  invitations: Invitation[];
 }

@@ -47,7 +47,6 @@ export const CreateGroup = () => {
         const groupDoc = await Firebase.firestore()
           .collection("groups")
           .add(group);
-        console.log(groupDoc.id);
         const userRef = Firebase.firestore()
           .collection("users")
           .doc(currentUser.uid);

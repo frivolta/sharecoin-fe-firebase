@@ -20,14 +20,12 @@ export const Group = ({ route, navigation }: any) => {
   const [hasError, setHasError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null);
 
-  console.log(route.params);
-
   React.useEffect(() => {
     const subscriber = Firebase.firestore()
       .collection("groups")
       .doc(route.params.groupId)
       .onSnapshot((documentSnapshot) => {
-        console.log("User data: ", documentSnapshot.data());
+        //console.log("User data: ", documentSnapshot.data());
       });
 
     // Stop listening for updates when no longer required
@@ -48,6 +46,32 @@ export const Group = ({ route, navigation }: any) => {
     ) : null;
 
   const loadingElement = <Text style={styles.title}>Loading...</Text>;
+  const addMemberElement =
+    route.params.owner.id === currentUser?.uid ? (
+      <CustomButton
+        label="Add Member"
+        onPress={() =>
+          navigation.navigate("AddMember", {
+            owner: route.params.owner,
+            groupId: route.params.groupId,
+            groupName: route.params.groupName,
+          })
+        }
+        shadows={Shadows.BIG}
+        buttonType={ButtonType.PRIMARY}
+        buttonSize={ButtonSize.BIG}
+        outlined={false}
+      />
+    ) : (
+      <Text
+        style={{
+          marginTop: 16,
+          color: COLORS.accent,
+        }}
+      >
+        You cannot add members
+      </Text>
+    );
 
   if (loading) {
     return loadingElement;
@@ -56,18 +80,7 @@ export const Group = ({ route, navigation }: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Group</Text>
-      <View style={{ alignSelf: "stretch" }}>
-        <CustomButton
-          label="Add Member"
-          onPress={() =>
-            navigation.navigate("AddMember", { groupId: route.params.groupId })
-          }
-          shadows={Shadows.BIG}
-          buttonType={ButtonType.PRIMARY}
-          buttonSize={ButtonSize.BIG}
-          outlined={false}
-        />
-      </View>
+      <View style={{ alignSelf: "stretch" }}>{addMemberElement}</View>
       {errorMessageElement}
     </View>
   );
