@@ -21,11 +21,6 @@ import {
 } from "../../../components/Button";
 import firebase from "firebase";
 
-// Take group id
-// Search a user
-// if the user is not yet member add request invitation and go back to group
-// if the user is not found: error
-// if the user is already in the group: error
 type GroupsScreenNavigationProps = StackNavigationProp<
   GroupsStackScreenParamsList,
   "AddMember"
@@ -46,7 +41,6 @@ interface AddMemberForm {
 
 export const AddMember = ({ route }: Props) => {
   const { currentUser } = useFirebaseAuthContext();
-  const [groups, setGroups] = React.useState<null | PopulatedGroup[]>(null);
   const [loading, setLoading] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null);

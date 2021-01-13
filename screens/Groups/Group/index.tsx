@@ -15,7 +15,6 @@ import {
 
 export const Group = ({ route, navigation }: any) => {
   const { currentUser } = useFirebaseAuthContext();
-  const [groups, setGroups] = React.useState<null | PopulatedGroup[]>(null);
   const [loading, setLoading] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null);
@@ -72,6 +71,20 @@ export const Group = ({ route, navigation }: any) => {
         You cannot add members
       </Text>
     );
+  const addExpenseElement = (
+    <CustomButton
+      label="Add Expense"
+      onPress={() =>
+        navigation.navigate("AddExpense", {
+          groupId: route.params.groupId,
+        })
+      }
+      shadows={Shadows.BIG}
+      buttonType={ButtonType.PRIMARY}
+      buttonSize={ButtonSize.BIG}
+      outlined={false}
+    />
+  );
 
   if (loading) {
     return loadingElement;
@@ -80,7 +93,10 @@ export const Group = ({ route, navigation }: any) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Group</Text>
-      <View style={{ alignSelf: "stretch" }}>{addMemberElement}</View>
+      <View style={{ alignSelf: "stretch" }}>
+        {addMemberElement}
+        {addExpenseElement}
+      </View>
       {errorMessageElement}
     </View>
   );

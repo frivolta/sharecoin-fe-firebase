@@ -8,6 +8,7 @@ import { Group } from "../screens/Groups/Group";
 import { AddMember } from "../screens/Groups/AddMember";
 import { GroupsStackScreenParamsList } from "../types";
 import { Invitations } from "../screens/Invitations";
+import { AddExpense } from "../screens/Groups/AddExpense";
 
 const DashboardStack = createStackNavigator();
 const CreateGroupStack = createStackNavigator();
@@ -37,6 +38,7 @@ export const GroupsStackScreen = () => {
       <GroupsStack.Screen name="Groups" component={Groups} />
       <GroupsStack.Screen name="Group" component={Group} />
       <GroupsStack.Screen name="AddMember" component={AddMember} />
+      <GroupsStack.Screen name="AddExpense" component={AddExpense} />
     </GroupsStack.Navigator>
   );
 };

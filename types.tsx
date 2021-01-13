@@ -2,6 +2,7 @@ export type GroupsStackScreenParamsList = {
   Groups: undefined;
   Group: { groupId: string; owner: any };
   AddMember: { groupId: string; groupName: string; owner: GroupOwner };
+  AddExpense: { groupId: string };
 };
 
 export interface Expense {
@@ -26,6 +27,14 @@ export interface GroupOwner {
   email: string;
   photoUrl: string;
 }
+
+export interface GroupMember {
+  id: string;
+  displayName: string;
+  email: string;
+  photoUrl: string;
+}
+
 export interface PopulatedGroup {
   id?: string;
   name: string;
